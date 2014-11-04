@@ -60,6 +60,8 @@ public class Tile {
 
     public int getSpawnRate() { return 70; }
 
+    public boolean doesSpawnInGen(){ return false; }
+
     public void onBreak(World world, int x, int y){
         world.spawnItemStack(getDrops(), x, y);
     }

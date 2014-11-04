@@ -22,4 +22,7 @@ public class TileStone extends Tile{
     @Override
     public String getDictionaryName(){ return Dictionary.Tile.STONE; }
 
+    @Override
+    public boolean doesSpawnInGen(){ return true; }
+
 }

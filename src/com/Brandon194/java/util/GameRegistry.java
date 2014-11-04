@@ -5,6 +5,8 @@ import com.Brandon194.java.entities.Entity;
 import com.Brandon194.java.items.Item;
 import com.Brandon194.java.tiles.Tile;
 
+import java.util.Random;
+
 /**
  * Created by Brandon194 on 11/3/2014.
  */
@@ -63,6 +65,19 @@ public class GameRegistry {
         worlds = temp;
     }
 
+    public Item[] getItems() {
+        return items;
+    }
+    public Tile[] getTiles(){
+        return tiles;
+    }
+    public Entity[] getEntities(){
+        return entities;
+    }
+    public World[] getWorlds(){
+        return worlds;
+    }
+
     public int getItemSize(){
         return items.length;
     }
@@ -74,5 +89,23 @@ public class GameRegistry {
     }
     public int getEntitySize(){
         return entities.length;
+    }
+
+    public Tile getRandomTile(int y, int seed){
+        Tile[] temp = new Tile[tiles.length*100];
+        int count = 0;
+
+        for(int i=0;i<tiles.length;i++){
+            if (tiles[i].getSpawnLevelMax() >= y && tiles[i].getSpawnLevelMin()<=y){
+                for (int j=0;j<tiles[i].getSpawnRate();j++) {
+                    temp[count] = tiles[i];
+                    count++;
+                }
+            }
+        }
+
+
+        int ran = seed%count;
+        return temp[ran];
     }
 }

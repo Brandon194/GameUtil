@@ -15,4 +15,7 @@ public class TileGrass extends Tile{
 
     @Override
     public String getBreakableToolType(){ return Dictionary.Tools.SHOVEL; }
+
+    @Override
+    public boolean doesSpawnInGen(){ return true; }
 }
