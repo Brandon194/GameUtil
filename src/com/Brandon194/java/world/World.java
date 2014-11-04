@@ -6,6 +6,10 @@ import com.Brandon194.java.entities.Entity;
 import com.Brandon194.java.entities.EntityItemStack;
 import com.Brandon194.java.references.Names;
 import com.Brandon194.java.tiles.Tile;
+import com.Brandon194.java.util.Sprites;
+
+import java.awt.*;
+import java.awt.image.BufferedImage;
 
 /**
  * Created by Brandon194 on 11/3/2014.
@@ -18,6 +22,8 @@ public class World {
     private boolean loading;
 
     int seed = 0;
+
+    private BufferedImage background = Sprites.loadSprites(Sprites.BACKGROUND, "background");
 
     private Tile[][] tiles;
 
@@ -103,6 +109,9 @@ public class World {
         loading = true;
     }
 
+    public Tile[][] getWorldTiles(){
+        return tiles;
+    }
     public void generateWorld(){
         if (seed == 0) seed = (int)System.currentTimeMillis();
         tiles = new Tile[3000][this.maxWorldHeight()];
@@ -114,6 +123,18 @@ public class World {
         for (int x=0;x<3000;x++){
             for (int y=0;y<maxWorldHeight();y++){
                 Driver.REGISTRY.getRandomTile(y, seed);
+            }
+        }
+    }
+
+    public void render(Graphics G){
+        for(int i=0;i<1024;i++){
+            //G.drawImage(background, i 0, null);
+        }
+
+        for (int i=0;i<tiles.length;i++){
+            for (int j=0;j<tiles[i].length;j++){
+
             }
         }
     }

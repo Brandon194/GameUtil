@@ -96,10 +96,14 @@ public class GameRegistry {
         int count = 0;
 
         for(int i=0;i<tiles.length;i++){
-            if (tiles[i].getSpawnLevelMax() >= y && tiles[i].getSpawnLevelMin()<=y){
-                for (int j=0;j<tiles[i].getSpawnRate();j++) {
-                    temp[count] = tiles[i];
-                    count++;
+            if (tiles[i] != null) {
+                tiles[i].getName();
+
+                if (tiles[i].getSpawnLevelMax() >= y && tiles[i].getSpawnLevelMin() <= y) {
+                    for (int j = 0; j < tiles[i].getSpawnRate(); j++) {
+                        temp[count] = tiles[i];
+                        count++;
+                    }
                 }
             }
         }

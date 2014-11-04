@@ -6,8 +6,8 @@ package com.Brandon194.java.references;
 public class Names {
 
     public static final class Tiles {
-        public static final String GRASS = "Brandon194/grass";
-        public static final String STONE = "Brandon194/stone";
-        public static final String BRICK = "Brandon194/brick";
+        public static final String GRASS = "grass";
+        public static final String STONE = "stone";
+        public static final String BRICK = "brick";
     }
 }

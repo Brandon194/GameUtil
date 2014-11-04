@@ -28,11 +28,13 @@ public class Tile {
 
     protected void setTexture(String textureName){
         try {
-            SPRITES = Sprites.loadSprites(textureName);
+            SPRITES = Sprites.loadSprites(Sprites.TILE, textureName);
         }catch(IOException e){
             Logger.writeLog("Texture not found", Logger.LOG_WARNING);
         }
     }
+
+    public String getName(){ return name; }
 
     public float getHardness(){
         return 0.1F;

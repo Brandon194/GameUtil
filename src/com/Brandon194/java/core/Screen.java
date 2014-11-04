@@ -1,5 +1,6 @@
 package com.Brandon194.java.core;
 
+import com.Brandon194.java.tiles.Tile;
 import com.Brandon194.java.util.Audio;
 import com.Brandon194.java.util.KeyboardInputHandler;
 import com.Brandon194.java.world.World;
@@ -139,8 +140,16 @@ public class Screen extends Canvas implements Runnable {
         // Creates the graphics object and then clears the screen.
         Graphics g = BS.getDrawGraphics();
         g.clearRect(0, 0, getWidth(), getHeight());
-        
-        //currentLevel.render(g);
+
+        World[] worlds = Driver.REGISTRY.getWorlds();
+        for (int i = 0;i<worlds.length;i++){
+            if (worlds[i] != null){
+                if (worlds[i].isLoading()){
+                    worlds[i].render(g);
+                }
+            }
+        }
+
         //HUD.render(g);
         g.dispose();
 		BS.show();
