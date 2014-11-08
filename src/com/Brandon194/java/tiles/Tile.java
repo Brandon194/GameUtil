@@ -5,6 +5,7 @@ import com.Brandon194.java.core.ItemStack;
 import com.Brandon194.java.util.Dictionary;
 import com.Brandon194.java.util.Sprites;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -28,7 +29,7 @@ public class Tile {
 
     protected void setTexture(String textureName){
         try {
-            SPRITES = Sprites.loadSprites(Sprites.TILE, textureName);
+            SPRITES = Sprites.loadSprites(Sprites.TILE,Driver.RESOURCE_PACK, textureName);
         }catch(IOException e){
             Logger.writeLog("Texture not found", Logger.LOG_WARNING);
         }

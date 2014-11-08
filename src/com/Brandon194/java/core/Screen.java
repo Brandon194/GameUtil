@@ -83,7 +83,8 @@ public class Screen extends Canvas implements Runnable {
 			    	updateLogic(delta);
 			    	delta--;
 			    }
-			     
+
+
 			    render();
 			    // we want each frame to take 10 milliseconds, to do this
 			    // we've recorded when we started the frame. We add 10 milliseconds

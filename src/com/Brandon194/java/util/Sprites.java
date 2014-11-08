@@ -1,6 +1,7 @@
 package com.Brandon194.java.util;
 
 import com.Brandon194.java.core.Driver;
+import misc.Logger;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -25,10 +26,11 @@ public class Sprites {
      * @return The sprites.
      * @throws java.io.IOException If an error occurs during reading.
      */
-    public static BufferedImage[] loadSprites(final String type, final String FILE_PATH) throws IOException {
+    public static BufferedImage[] loadSprites(final String type,final String RESOURCE_PACK, final String FILE_PATH) throws IOException {
         BufferedImage[] sprites;
 
-        File f = new File(Driver.ROOT_FOLDER + "\\resources\\ + RESOURCE_PACK + \\ + type + \\" + FILE_PATH);
+        File f = new File(Driver.ROOT_FOLDER + "\\resources\\" + RESOURCE_PACK + "\\" + type + "\\" + FILE_PATH + "\\");
+        //Logger.writeLog(Driver.ROOT_FOLDER + "\\resources\\" + RESOURCE_PACK + "\\" + type + "\\" + FILE_PATH + "\\", Logger.LOG_DEBUG);
 
         FilenameFilter filter = new FilenameFilter() {
             @Override
@@ -38,14 +40,18 @@ public class Sprites {
             }
         };
 
-        File[] spriteFiles = f.listFiles(filter);
-        sprites = new BufferedImage[spriteFiles.length];
+        try {
+            File[] spriteFiles = f.listFiles(filter);
+            sprites = new BufferedImage[spriteFiles.length];
 
-        for(int i=0;i<spriteFiles.length;i++) {
-            sprites[i] = ImageUtilities.toCompatibleImage(ImageIO.read(spriteFiles[i]));
+            for (int i = 0; i < spriteFiles.length; i++) {
+                sprites[i] = ImageUtilities.toCompatibleImage(ImageIO.read(spriteFiles[i]));
+            }
+
+            return sprites;
+        }catch(Exception e){
+            return null;
         }
-
-        return sprites;
     }
 
     /**

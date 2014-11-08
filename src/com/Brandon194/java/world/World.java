@@ -7,9 +7,11 @@ import com.Brandon194.java.entities.EntityItemStack;
 import com.Brandon194.java.references.Names;
 import com.Brandon194.java.tiles.Tile;
 import com.Brandon194.java.util.Sprites;
+import misc.Logger;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 /**
  * Created by Brandon194 on 11/3/2014.
@@ -19,19 +21,22 @@ public class World {
     private int id;
 
     private long timeOfLastUpdate;
-    private boolean loading;
+    private boolean loading = false;
 
     int seed = 0;
 
-    private BufferedImage background = Sprites.loadSprites(Sprites.BACKGROUND, "background");
+    private BufferedImage background;
 
-    private Tile[][] tiles;
+    private Tile[][] worldTiles = null;
 
     private Entity[] entityList = new Entity[100];
     private EntityItemStack[] itemStacks = new EntityItemStack[100];
 
     public World(int id){
         this.id = id;
+
+        bg();
+        getWorldTiles();
     }
 
     public World(int id, String seed){
@@ -42,7 +47,16 @@ public class World {
             serialize += (c *1000)+(c*194);
         }
 
-        this.seed = serialize;
+        this.seed = Math.abs(serialize);
+
+        bg();
+        getWorldTiles();
+    }
+
+    private void bg(){
+        try {
+            background = Sprites.loadSprites(Sprites.BACKGROUND, Driver.RESOURCE_PACK, "background")[0];
+        }catch(IOException e){}
     }
 
     public void removeEntity(int id){
@@ -102,7 +116,7 @@ public class World {
     public void load(){
         timeOfLastUpdate = System.currentTimeMillis();
 
-        if (tiles == null){
+        if (worldTiles == null){
             generateWorld();
         }
 
@@ -110,11 +124,11 @@ public class World {
     }
 
     public Tile[][] getWorldTiles(){
-        return tiles;
+        return worldTiles;
     }
     public void generateWorld(){
-        if (seed == 0) seed = (int)System.currentTimeMillis();
-        tiles = new Tile[3000][this.maxWorldHeight()];
+        if (seed == 0) seed = Math.abs((int)System.currentTimeMillis());
+        worldTiles = new Tile[3000][this.maxWorldHeight()];
 
 
 
@@ -122,19 +136,31 @@ public class World {
 
         for (int x=0;x<3000;x++){
             for (int y=0;y<maxWorldHeight();y++){
-                Driver.REGISTRY.getRandomTile(y, seed);
+                worldTiles[x][y] = Driver.REGISTRY.getRandomTile(y, seed);
             }
         }
     }
 
     public void render(Graphics G){
+        if (worldTiles == null){ generateWorld(); }
         for(int i=0;i<1024;i++){
-            //G.drawImage(background, i 0, null);
+            G.drawImage(background, i, 0, null);
         }
 
-        for (int i=0;i<tiles.length;i++){
-            for (int j=0;j<tiles[i].length;j++){
+        for (int i=-7;i<Driver.PLAYER.getTileX()+7;i++){
+            for (int j=-4;j<Driver.PLAYER.getTileY()+4;j++){
 
+                int tileX = (int)Driver.PLAYER.getTileX();
+                int tileY = (int)Driver.PLAYER.getTileY();
+
+                Logger.writeLog("i:"+ (tileX +i) + " j:" + (tileY+j), Logger.LOG_DEBUG);
+
+                try {
+                    if (worldTiles[tileX + i][j] != null) {
+                        G.drawImage(worldTiles[0][0].getSprites()[0], tileX + (i * 32), tileY + (j * 32), null);
+                        Logger.writeLog(worldTiles[i][j].getName(), Logger.LOG_DEBUG);
+                    }
+                }catch(Exception e){}
             }
         }
     }

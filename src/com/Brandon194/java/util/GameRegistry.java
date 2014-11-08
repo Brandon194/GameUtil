@@ -4,6 +4,7 @@ import com.Brandon194.java.world.World;
 import com.Brandon194.java.entities.Entity;
 import com.Brandon194.java.items.Item;
 import com.Brandon194.java.tiles.Tile;
+import misc.Logger;
 
 import java.util.Random;
 
@@ -108,8 +109,10 @@ public class GameRegistry {
             }
         }
 
-
-        int ran = seed%count;
+        int ran = Math.abs(seed) % count;
+        //Logger.writeLog("" + Math.abs(seed) + "%" + count + " " + ran, Logger.LOG_DEBUG);
         return temp[ran];
+
+        //return temp[0];
     }
 }
