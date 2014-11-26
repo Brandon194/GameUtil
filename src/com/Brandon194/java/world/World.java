@@ -18,8 +18,6 @@ import java.io.IOException;
  */
 public class World {
 
-    private int id;
-
     private long timeOfLastUpdate;
     private boolean loading = false;
 
@@ -32,15 +30,13 @@ public class World {
     private Entity[] entityList = new Entity[100];
     private EntityItemStack[] itemStacks = new EntityItemStack[100];
 
-    public World(int id){
-        this.id = id;
+    public World(){
 
         bg();
         getWorldTiles();
     }
 
-    public World(int id, String seed){
-        this.id = id;
+    public World(String seed){
         int serialize = 0;
 
         for (char c : seed.toCharArray()){
@@ -52,44 +48,35 @@ public class World {
         bg();
         getWorldTiles();
     }
-
     private void bg(){
         try {
             background = Sprites.loadSprites(Sprites.BACKGROUND, Driver.RESOURCE_PACK, "background")[0];
         }catch(IOException e){}
     }
-
     public void removeEntity(int id){
         entityList[id] = null;
     }
-
     public int maxWorldHeight(){
         return 256;
     }
-
     public boolean canSpawnOre(){
         return true;
     }
-
     public void removeItem(int id){
         itemStacks[id] = null;
     }
-
     public void unload(){
         loading = true;
     }
-
     public boolean isLoading(){
         return loading;
     }
-
     public void spawnEntity(Entity e){
         for (int i=0;i<entityList.length;i++){
             if (entityList[i] ==null) entityList[i] = e;
             return;
         }
     }
-
     public void spawnItemStack(ItemStack stack, int x, int y){
         for (int i=0; i<itemStacks.length;i++){
             if (itemStacks[i] == null){
@@ -98,7 +85,6 @@ public class World {
             }
         }
     }
-
     public void update(){
         // ItemStacks
         for (int i = 0; i < itemStacks.length; i++) {
@@ -112,7 +98,6 @@ public class World {
 
         timeOfLastUpdate = System.currentTimeMillis();
     }
-
     public void load(){
         timeOfLastUpdate = System.currentTimeMillis();
 
@@ -122,7 +107,6 @@ public class World {
 
         loading = true;
     }
-
     public Tile[][] getWorldTiles(){
         return worldTiles;
     }
@@ -140,7 +124,6 @@ public class World {
             }
         }
     }
-
     public void render(Graphics G){
         if (worldTiles == null){ generateWorld(); }
         for(int i=0;i<1024;i++){

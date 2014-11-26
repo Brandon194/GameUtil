@@ -5,7 +5,7 @@ package com.Brandon194.java.world;
  */
 public class Overworld extends World{
     public Overworld(){
-        super(0);
+        super();
     }
 
 

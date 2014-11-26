@@ -17,7 +17,7 @@ public class Init {
     public static void preinit(){
         //Worlds
         {
-            Driver.REGISTRY.addWorld(new Overworld());
+            Driver.REGISTRY.addWorld(new World());
         }
         //Tiles
         {
